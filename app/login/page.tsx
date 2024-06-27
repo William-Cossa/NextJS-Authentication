@@ -1,4 +1,4 @@
-'use client'
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,16 +11,18 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { register, useForm } from 'react-hook-form'
 
 function Login() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+//   const [email, setEmail] = useState<string>("");
+//   const [password, setPassword] = useState<string>("");
+ 
 
-  function handleLogin(){
-    console.log("Login:", email, password);
-  }
+  const {register, handleSubmit} = useForm();
 
-
+   function handleLogin(data:any){
+    console.log(data);
+}
   return (
     <div>
       <Card className="w-[350px]">
@@ -28,23 +30,21 @@ function Login() {
           <CardTitle>Login</CardTitle>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(handleLogin)}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="name">Email</Label>
-                <Input id="email" placeholder="E-mail" onChange={(e)=>setEmail(e.target.value)} />
+                <Input id="email" placeholder="E-mail" {...register('email')} />
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="pasword">Password</Label>
-                <Input id="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} />
+              <div className="flex flex-col space-y-1.5 mb-4">
+                <Label htmlFor="password" >Password</Label>
+                <Input id="password" placeholder="Password" {...register('password')} />
               </div>
             </div>
+            <Button className="w-full mt-6"  type="submit"  >Entrar</Button>
           </form>
         </CardContent>
-        <CardFooter className="">
-          {/* <Button variant="outline">Cancel</Button> */}
-          <Button className="w-full" onClick={handleLogin}>Entrar</Button>
-        </CardFooter>
+
       </Card>
     </div>
   );
