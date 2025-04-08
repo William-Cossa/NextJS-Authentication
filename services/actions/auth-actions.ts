@@ -28,7 +28,7 @@ async function createAccount(formdata: FormData){
 
 async function login(formdata: FormData) {
     "use server"
-
+    
     const email = formdata.get('email') as string;
     const password = formdata.get('password') as string;
 
