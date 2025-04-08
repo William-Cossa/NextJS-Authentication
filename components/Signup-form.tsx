@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import AuthActions from "@/services/actions/auth-actions";
-
+export const dynamic = "force-dynamic";
 export function SignUpForm() {
   return (
     <Card className="w-[350px]">

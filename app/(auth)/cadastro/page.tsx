@@ -1,5 +1,6 @@
 import { SignUpForm } from "@/components/Signup-form";
 import React from "react";
+
 export const dynamic = "force-dynamic";
 function SignupPage() {
   return (
