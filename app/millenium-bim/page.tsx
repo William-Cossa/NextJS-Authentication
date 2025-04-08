@@ -12,8 +12,9 @@ import { Input } from "@/components/ui/input";
 import { checkoutPayment } from "@/services/actions/payments-actions";
 import { Label } from "@radix-ui/react-label";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
+export const dynamic = "force-dynamic";
 function PaymentForm() {
   const [valor, setValor] = useState(Number);
   const searchParams = useSearchParams();
@@ -47,58 +48,60 @@ function PaymentForm() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-56px)]  w-full  items-center justify-center">
-      {resultIndicator ? (
-        <div className=" flex flex-col items-center justify-center">
-          <span className="font-semibold text-2xl text-green-700">
-            Pagamento efectuado com sucesso{" "}
-          </span>
-          <div className="font-semibold text-slate-900">
-            Codigo: <span className="font-bold">{resultIndicator}</span>
+    <Suspense fallback={<div>Carregando...</div>}>
+      <div className="flex h-[calc(100vh-56px)]  w-full  items-center justify-center">
+        {resultIndicator ? (
+          <div className=" flex flex-col items-center justify-center">
+            <span className="font-semibold text-2xl text-green-700">
+              Pagamento efectuado com sucesso{" "}
+            </span>
+            <div className="font-semibold text-slate-900">
+              Codigo: <span className="font-bold">{resultIndicator}</span>
+            </div>
           </div>
-        </div>
-      ) : (
-        <Card className="w-[350px]">
-          <CardHeader>
-            <CardTitle>Pagamento</CardTitle>
-            <CardDescription>Digite o valor para continuar.</CardDescription>
-          </CardHeader>
-          <form onSubmit={handleSubmit}>
-            <CardContent>
-              <div className="grid w-full items-center gap-4">
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="valor">Valor</Label>
-                  <Input
-                    id="valor"
-                    name="valor"
-                    placeholder="Digite o valor"
-                    type="number"
-                    onChange={(e) => setValor(Number(e.target.value))}
-                    required
-                  />
+        ) : (
+          <Card className="w-[350px]">
+            <CardHeader>
+              <CardTitle>Pagamento</CardTitle>
+              <CardDescription>Digite o valor para continuar.</CardDescription>
+            </CardHeader>
+            <form onSubmit={handleSubmit}>
+              <CardContent>
+                <div className="grid w-full items-center gap-4">
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="valor">Valor</Label>
+                    <Input
+                      id="valor"
+                      name="valor"
+                      placeholder="Digite o valor"
+                      type="number"
+                      onChange={(e) => setValor(Number(e.target.value))}
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="password">Return URL</Label>
+                    <Input
+                      id="returnUrl"
+                      name="returnUrl"
+                      defaultValue={returnUrl}
+                      onChange={(e) => setReturnUrl(e.target.value)}
+                      placeholder="Digite a url de retorno/resposta..."
+                      type="text"
+                    />
+                  </div>
                 </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="password">Return URL</Label>
-                  <Input
-                    id="returnUrl"
-                    name="returnUrl"
-                    defaultValue={returnUrl}
-                    onChange={(e) => setReturnUrl(e.target.value)}
-                    placeholder="Digite a url de retorno/resposta..."
-                    type="text"
-                  />
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button className="w-full" type="submit">
-                {loading ? "Processando..." : "Pagar"}
-              </Button>
-            </CardFooter>
-          </form>
-        </Card>
-      )}
-    </div>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button className="w-full" type="submit">
+                  {loading ? "Processando..." : "Pagar"}
+                </Button>
+              </CardFooter>
+            </form>
+          </Card>
+        )}
+      </div>
+    </Suspense>
   );
 }
 

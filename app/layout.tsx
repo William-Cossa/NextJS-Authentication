@@ -6,7 +6,7 @@ import { UserProvider } from "@/context/UserContext";
 import { getUser } from "@/services/actions/auth-actions";
 import { User } from "@prisma/client";
 
-
+export const dynamic = "force-dynamic";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,20 +19,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-   
-  const user = await getUser(); 
+  const user = await getUser();
 
   return (
-   
-        <html lang="en"> 
-          <body className={inter.className} >
-            {/* <UserProvider> */}
-                <Header user={user} /> 
-                {/* <Header />  */}
-                {children}
-            {/* </UserProvider> */}
-          </body>
-        </html>
-
+    <html lang="en">
+      <body className={inter.className}>
+        {/* <UserProvider> */}
+        <Header user={user} />
+        {/* <Header />  */}
+        {children}
+        {/* </UserProvider> */}
+      </body>
+    </html>
   );
 }
