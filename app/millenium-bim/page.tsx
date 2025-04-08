@@ -12,17 +12,18 @@ import { Input } from "@/components/ui/input";
 import { checkoutPayment } from "@/services/actions/payments-actions";
 import { Label } from "@radix-ui/react-label";
 import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function PaymentForm() {
   const [valor, setValor] = useState(Number);
   const searchParams = useSearchParams();
   const resultIndicator = searchParams.get("resultIndicator");
+  const [returnUrl, setReturnUrl] = useState("");
 
-  const [returnUrl, setReturnUrl] = useState(
-    window.location.origin + "/millenium-bim"
-  );
-
+  useEffect(() => {
+    const urlBase = window.location.origin;
+    setReturnUrl(urlBase + "/millenium-bim");
+  }, []);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
