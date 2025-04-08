@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface props {
-  user: any;
+  user?: any;
 }
 function Header({ user }: props) {
   const pathname = usePathname();
