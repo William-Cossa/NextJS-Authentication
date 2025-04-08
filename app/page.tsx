@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 export default function Home() {
   return (
     <main className="flex h-screen flex-col items-center p-24">
