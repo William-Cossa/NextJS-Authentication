@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Login App",
+  title: "Test App",
   description: "Aplicacao de authenticacao com prisma ",
 };
 
